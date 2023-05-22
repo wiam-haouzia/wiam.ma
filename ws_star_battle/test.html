@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/main.js"></script>
+</head>
+<body>
+    <div class="game">
+        <div class="menu">
+            <div class="more">III</div>
+            <div class="startBtn" title="START GAME" onclick="startGame()"><span></span></div>
+            <div class="instractions">
+                <span class="bg"></span>
+                <div class="instract">
+                    <h2>How to Play Star Battle</h2>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <div class="canva">
+            <div class="head">
+                <span class="score"></span> 
+                <span class="fuel"></span>
+                <span class="time"></span>
+                <img src="PSD/src/score.png" width="28px" class="scoreI" >
+                <img src="PSD/src/fuel.png" width="20px" class="fuelI" >
+                <img src="PSD/src/mute.png" onclick="muteFin()" class="mute" >
+                <img src="PSD/src/font_plus.png" onclick="fontFin()" class="font" >
+                <img src="PSD/src/play.png" onclick="pauseFin()" class="pause" >
+            </div>
+            <canvas id="canvas" width="960" height="600"></canvas>
+        </div>
+        <div class="endgame">
+            <div class="formName" id="dialog-form">
+                <div class="containe">
+                    <label for="Iname">Your Name :</label>
+                    <input class="input" id="Iname" name="name" type="text" >
+                    <input class="btn btn-success" id="addData" type="submit" value="Continue" >
+                </div>
+            </div>
+            <div class="dataPlayers">
+                <div class="result">
+                    <table>
+                    </table>
+                </div>
+                <div class="startBtn" title="START GAME" onclick="startGame()"><span></span></div>
+            </div>
+        </div>
+    </div>
+<script>
+
+var ctx = document.getElementById('canvas').getContext('2d');
+var canvasW = document.getElementById('canvas').width;
+var canvasH = document.getElementById('canvas').height;
+
+var gameover = true;
+var pause = false;
+var muted = false;
+var fontIncrist = false;
+var FuelCount = 60;
+var ship = null;
+var ScoreCount = 0;
+var TimeInter = 2;
+var Enemys = [];
+var shots = [];
+
+var Min = 0;
+var Sec = 0;
+var timeChar = Min+':'+Sec;
+
+// intervals 
+var interEnemy = null;
+var interTime = null;
+var interFuel = null;
+
+// music 
+var BGsound = new Audio();
+var destroyS = new Audio();
+var hitS = new Audio();
+var deep = new Audio();
+var finish = new Audio();
+var shootS = new Audio();
+
+BGsound.src = 'sound/background.mp3';
+destroyS.src = "sound/destroyed.mp3";
+hitS.src = "sound/hit.mp3";
+deep.src = "sound/beep2.mp3";
+finish.src = "sound/finish.mp3";
+shootS.src = "sound/shoot.mp3";
+
+
+BGsound.play();
+BGsound.loop = true;
+
+//controlles
+var left = false;
+var right = false;
+var up = false;
+var down = false;
+
+// images 
+var shipI = new Image();
+var balle = new Image();
+var balle2 = new Image();
+var enemy1 = new Image();
+var Friend = new Image();
+var enemy2 = new Image();
+var aestroid1 = new Image();
+var aestroid2 = new Image();
+var aestroid3 = new Image();
+var fuelI = new Image();
+
+shipI.src = 'PSD/src/ship_4.png';
+balle.src = 'PSD/src/balle.png';
+balle2.src = 'PSD/src/balle2.png';
+enemy1.src = 'PSD/src/ship_1.png';
+Friend.src = 'PSD/src/ship_2.png';
+enemy2.src = 'PSD/src/ship_3.png';
+aestroid1.src = 'PSD/src/aestroid_1.png';
+aestroid2.src = 'PSD/src/aestroid_2.png';
+aestroid3.src = 'PSD/src/aestroid_3.png';
+fuelI.src = 'PSD/src/fuelAnime.png';
+
+var TableEnemy = [fuelI,enemy1,Friend,enemy2,fuelI,aestroid1,aestroid2,fuelI];
+
+function ObjectDraw(img,x,y,col,row,speed,scale) {
+    return {
+        img:img,
+        x:x,
+        y:y,
+        width:(img.width/col)*scale,
+        height:(img.height/row)*scale,
+        w:(img.width/col),
+        h:(img.height/row),
+        speed:speed,
+        srcY:0,
+        srcX:0,
+        re:0,
+        tire:1,
+        shotX:canvasW,
+        shotY:200,
+        curtF:0,
+        shotH:(balle2.height/2)*scale,
+        shotW:(balle2.width/2)*scale,
+        draw:function () {
+            
+            if ( col == 1 && row == 1 ) {
+                ctx.drawImage(this.img,this.x,this.y,this.width,this.height);
+            }else {
+                if (this.re == col*row -1 ) {
+                    this.re = 0;
+                    this.srcY = 0;
+                }
+                if (this.re == col ) {
+                    this.srcY += this.h;
+                }
+                if (this.curtF  == col - 1) {
+                    this.curtF = 0;
+                }else this.curtF++;
+
+                this.srcX = this.w * this.curtF;
+                this.re++;
+                ctx.drawImage(this.img,this.srcX,this.srcY,this.w,this.h,this.x,this.y,this.width,this.height);
+            }
+        },
+        atack:function (){
+            ctx.drawImage(balle2,this.shotX,this.shotY,this.shotW,this.shotH);
+        }
+    };
+}
+
+
+// controllers
+$(document).ready(function(){
+    $(document).keydown(function(e){
+        if (e.which == 37) left = true;
+        if (e.which == 38) up = true;
+        if (e.which == 39) right = true;
+        if (e.which == 40) down = true;
+        if (e.which == 80) pauseFin();
+        if (e.which == 32){
+            if (!gameover) {
+                if ( shots.length < 3 ) {
+                    shootS.pause();
+                    shootS.play();
+                    shooter();
+                }
+            }
+        }
+        if (e.which == 80){
+            if (pause) {
+                pause = false;
+            }else pause = true;
+        } 
+    }).keyup(function(e){
+        if (e.which == 37) left = false;  
+        if (e.which == 38) up = false;  
+        if (e.which == 39) right = false;  
+        if (e.which == 40) down = false; 
+    });
+});
+function shooter() {
+    var x = ship.x+ship.width ;
+    var y = ship.y + (ship.height/2) - (balle.height/2);
+    shots.push( ObjectDraw(balle,x,y,1,1,10,1) );
+}
+
+function EnemyInter() {
+    interEnemy = setInterval(createEnemy,TimeInter*1000);
+}
+
+function createEnemy() {
+    var rand = Math.floor(Math.random() * TableEnemy.length);
+    var Scales = [0.6,0.7,0.8,0.9,1];
+    var Speed = [1,2,3,4];
+    var col = 0;
+    var row = 0;
+    var x = 0;
+    var y = 0;
+    
+    if ( TableEnemy[rand] == fuelI ) {
+        col = 7;
+        row = 2;
+        x = Math.floor(Math.random() * canvasW - 240 ) + 120;
+        y = -TableEnemy[rand].height;
+    }else {
+        col = 4;
+        row = 1;
+        x = canvasW;
+        y = Math.floor(Math.random() * canvasH );
+        y =  y < 120 ? 120 : y ;
+        y =  y > canvasH-150 ? canvasH-150 : y ;
+    }
+    var scale = Scales[ Math.floor(Math.random() * Scales.length) ];
+    var Speed = Scales[ Math.floor(Math.random() * Scales.length) ];
+   
+    Enemys.push( ObjectDraw(TableEnemy[rand],x,y,col,row,Speed,scale) );
+}
+
+function between(a,b,c) {
+    return ( a > b && a < c );
+}
+function collision(obj1 , obj2) {
+    if (between(obj1.x,obj2.x,obj2.x+obj2.width) || between(obj1.x+obj1.width,obj2.x,obj2.x+obj2.width)) {
+        if (between(obj1.y,obj2.y,obj2.y+obj2.height) || between(obj1.y+obj2.height,obj2.y,obj2.y+obj2.height)) {
+            return true;
+        }
+    }
+    if (between(obj2.x,obj1.x,obj1.x+obj1.width) || between(obj2.x+obj2.width,obj1.x,obj1.x+obj1.width)) {
+        if (between(obj2.y,obj1.y,obj1.y+obj1.height) || between(obj2.y+obj2.height,obj1.y,obj1.y+obj1.height)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+ship = ObjectDraw(shipI,30,(canvasH/2)-(shipI.height/2),3,2,3,1);
+
+function draw() {
+    background();
+
+    if (left && ship.x > 0) {
+        ship.x -= ship.speed;
+    }
+    if (right && ship.x+ship.width < canvasW) {
+        ship.x += ship.speed;
+    }
+    if (up && ship.y > 80) {
+        ship.y -= ship.speed;
+    }
+    if (down && ship.y+ship.height < canvasH) {
+        ship.y += ship.speed;
+    }
+    
+
+    shots.forEach(function (shot,Ishot) {
+        shot.x += shot.speed;
+        Enemys.forEach(function (enemy,ien) {
+            
+            if (collision(enemy , shot)) {
+                
+                shots.splice(Ishot,1);
+                if (enemy.img == enemy1 || enemy.img == enemy2 ) {
+                    hitS.play();
+                    ScoreCount++;
+                    Enemys.splice(ien,1);
+                }else if (enemy.img == fuelI) {
+                    deep.play();
+                    FuelCount += 5;
+                    Enemys.splice(ien,1);
+                }else if (enemy.img == Friend) {
+                    hitS.play();
+                    ScoreCount -= 10;
+                    Enemys.splice(ien,1);
+                }else {
+                    if (enemy.tire == 0) {
+                        Enemys.splice(ien,1);
+                        hitS.play();
+                    }else {
+                        destroyS.play();
+                        ScoreCount += 5;
+                        enemy.tire--;
+                    }
+                } 
+            }
+
+        });
+        
+
+        if (shot.x+shot.width > canvasW) {
+            shots.splice(Ishot,1);
+        }
+        shot.draw();
+    });
+
+    Enemys.forEach(function (enemy,ien) {
+        if ( enemy.img == fuelI ) {
+            enemy.y += enemy.speed;
+        }else enemy.x -= enemy.speed;
+        
+        if (collision(ship,enemy )) {
+            
+            if (enemy.img == fuelI) {
+                FuelCount += 5;
+                deep.play();
+                Enemys.splice(ien,1);
+            }else if (enemy.img != Friend) {
+                $('#canvas').effect('shake');
+                Enemys.splice(ien,1);
+                FuelCount -= 5;
+            }
+            
+        }
+
+        var obj2 = {
+            x:enemy.shotX,
+            y:enemy.shotY,
+            width:enemy.shotW,
+            height:enemy.shotH,
+        };
+        
+
+        if ( collision(ship,obj2) ) {
+            enemy.shotX = enemy.x - enemy.shotW;
+            FuelCount -=15;
+            deep.play();
+            obj2.x = enemy.shotX;
+            obj2.y = enemy.shotY;
+            obj2.width = enemy.shotW;
+            obj2.height = enemy.shotH;
+        }
+
+        if (enemy.shotX < -enemy.shotW) {
+            enemy.shotX = enemy.x - enemy.shotW;
+        }
+        if (enemy.img == enemy1 || enemy.img == enemy2 ) {
+            enemy.shotX -= enemy.speed*4;
+            enemy.shotY = enemy.y + (enemy.height/2) -  (enemy.shotH/2) ;
+
+            enemy.atack();
+        }
+
+        if ( enemy.x < -enemy.width ) {
+            Enemys.splice(ien,1);
+        }
+        if (enemy.y > canvasH ) {
+            Enemys.splice(ien,1);
+        }
+        enemy.draw();
+    });
+
+    if (ScoreCount % 50 == 0) {
+        TimeInter--;
+    }
+
+    ship.draw();
+    if (FuelCount >= 60 ) FuelCount = 60;
+    if (FuelCount <= 0 ) FuelCount = 0;
+
+    $('.fuel').html(FuelCount);
+    $('.score').html(ScoreCount);
+
+
+    if (!pause) {
+        if (gameover) {
+            endGame();
+        }else window.requestAnimationFrame(draw);
+    }
+}
+
+
+function muteFin() {
+    var src = "PSD/src/mute.png";
+    if (muted) {
+        BGsound.muted = false;
+        destroyS.muted = false;
+        hitS.muted = false;
+        deep.muted = false;
+        finish.muted = false;
+        shootS.muted = false;
+        muted = false;
+    }else{
+        BGsound.muted = true;
+        destroyS.muted = true;
+        hitS.muted = true;
+        deep.muted = true;
+        finish.muted = true;
+        shootS.muted = true;
+        src = "PSD/src/valume.png";
+        muted = true;
+    }
+    $('.mute').attr("src",src);
+}
+
+
+function fontFin() {
+    var src = "PSD/src/font_plus.png";
+    if (fontIncrist) {
+        $('.head').css({'font-size':'25px'});
+        fontIncrist = false;
+    }else{
+        $('.head').css({'font-size':'27px'});
+        src = "PSD/src/font_moin.png";
+        fontIncrist = true;
+    }
+    $('.font').attr("src",src);
+}
+
+function pauseFin() {
+    var src = "PSD/src/play.png";
+    if (pause) {
+        pause = false;
+        interTime = setInterval(Timer,1000);
+        interFuel = setInterval(FuelDown,1000); 
+        EnemyInter();
+        draw();
+    }else{
+        clearInterval(interTime);
+        clearInterval(interFuel);
+        clearInterval(interEnemy);
+        src = "PSD/src/pause.png";
+        pause = true;
+    }
+    $('.pause').attr("src",src);
+}
+
+function endGame() {
+    BGsound.pause();
+    finish.play();
+    
+    clearInterval(interTime);
+    clearInterval(interFuel);
+    clearInterval(interEnemy);
+    $('.endgame').fadeIn();
+    $('.canva').fadeOut();
+}
+
+// background Images
+var sun = new Image();
+var earth = new Image();
+var jupiter = new Image();
+var mars = new Image();
+var saturn = new Image();
+var science = new Image();
+var uranus = new Image();
+var BG = new Image();
+var filter = new Image();
+
+sun.src = 'PSD/src/planets/sunV2.png';
+earth.src = 'PSD/src/planets/earth.png';
+jupiter.src = 'PSD/src/planets/jupiter.png';
+mars.src = 'PSD/src/planets/mars.png';
+saturn.src = 'PSD/src/planets/saturn.png';
+science.src = 'PSD/src/planets/science.png';
+uranus.src = 'PSD/src/planets/uranus.png';
+BG.src = 'PSD/src/bg.png';
+filter.src = 'PSD/src/filter.png';
+var dg = 0;
+
+function background() {
+    var time = new Date();
+    ctx.clearRect(0,0,canvasW,canvasH);
+    ctx.drawImage(BG,0,0,canvasW,canvasH);
+
+    ctx.save();
+    ctx.translate(canvasW/2,canvasH/2);
+    ctx.rotate( (dg+2*Math.PI)/180 );
+    ctx.drawImage(sun,-sun.width/4,-sun.height/4,sun.width/2,sun.height/2);
+   
+    
+    planes(earth, 80 , 8 , time );
+    planes(jupiter, 120 , 12 , time );
+    planes(mars, 180 , 18 , time );
+    planes(saturn, 210 , 21 , time );
+    planes(science, 250 , 25 , time );
+    planes(uranus, 300 , 30 , time );
+    ctx.restore();
+    ctx.drawImage(filter,0,0,canvasW,canvasH);
+    dg++;
+}
+function planes(img,dst,btw,time) {
+    ctx.save();
+    ctx.rotate( ( 2*Math.PI/60 ) * time.getSeconds() + ( 2*Math.PI/60000 ) * time.getMilliseconds() + btw );
+    ctx.translate(0,dst);
+        ctx.save();
+        ctx.rotate( (dg+2*Math.PI)/180 );
+        ctx.drawImage(img,-img.width/4,-img.height/4,img.width/2,img.height/2);
+        ctx.restore();
+    ctx.restore();
+}
+
+function Timer() {
+    var charMin = Min+':';
+    var charSec = Sec;
+    if(Sec < 10) charSec = '0'+Sec;
+    if(Min < 10) charMin = '0'+Min+':';
+    if (Sec == 60) {
+        Min++;
+        Sec = 0;
+    }
+    Sec++;
+    timeChar = charMin+charSec;
+    $('.time').html(timeChar);
+}
+function FuelDown() {
+    FuelCount--;
+    if ( FuelCount <= 0 ) {
+        gameover = true;
+        clearInterval(interFuel);
+    }
+}
+
+
+
+/////////Ajax///////////////////////////////
+$.post( "php/register.php", { name: name, time: parseInt((Min/60)+Sec) ,score: parseInt(ScoreCount)})
+        .done(function( data ) {
+            
+            var jsonData = JSON.parse(data);
+
+            for (let i = 0; i < jsonData.length; i++) {
+                var row = jsonData[i];
+                $("table").append(
+                    '<tr>'+
+                        '<td>'+row['name']+'</td>'+    
+                        '<td>'+row['time']+'</td>'+    
+                        '<td>'+row['score']+'</td>'+
+                    '</tr>'
+                );
+            }
+        });

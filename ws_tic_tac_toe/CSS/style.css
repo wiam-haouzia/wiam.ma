@@ -1,0 +1,139 @@
+@font-face{
+  src: url("../She-Stole-the-Night.ttf");
+  font-family: Neon
+}
+
+body{margin: 0 !important;
+  background-image: url('../bg.png'); 
+  background-size: 100%;
+}
+table{
+  padding: 10px
+}
+.main {
+ margin: auto;
+ width:100%;
+}
+.splach {
+width: 80vw;
+position:relative;
+margin-left: 10vw;
+}
+#sp {
+ position:absolute;
+ top: 680px;
+ left: 667px;
+ font-size: 65px;
+ color: #fbe258;
+ font-family: myriad pro;
+}
+
+
+ .game {
+  width: 500px;
+  height: 500px;
+  margin: auto;
+ }
+ .option {
+ margin-top: -26px;
+ width: 70%;
+ margin: auto;
+ }
+ .footer {
+  width:500px;
+  height:200px;
+ }
+ .img_title {
+  margin-left: 25%;
+  width: 50%;
+  margin-top: 20px;
+ }
+ table {
+  width:100%;
+  height:100%;
+  background-image :url('../table.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-spacing: 15px;
+  padding: 0px;
+ }
+ td {
+     
+  background-repeat: no-repeat;
+  background-size: 80%;
+  background-position: center;
+
+  width: 95px;
+  height: 95px;
+ }
+ 
+ .imgW {
+ 
+  width:300px;
+  height:300px;
+ }
+#msg {
+  text-align:center;
+ }
+ #timer{
+  height:50px;
+    position:relative ; top : 20px; 
+  text-align:center;
+ 
+ }
+ h2 {
+   position :relative; 
+   top : -100px;
+   left : 40px;
+ 
+ }
+ .radio{
+  margin-top: -35px;
+  width: 33%;
+  cursor: pointer;
+  transition: all .2s ease ;
+ }
+ .radio:hover{
+  transition: all .5s ease ;
+  transform: scale(1.1);
+ }
+ img#hard {   
+    margin-left: -45px;
+}
+
+img#expert {
+    margin-left: -15px;
+}
+/*timer*/
+#timer {
+  position: absolute;
+  font-size: 4em;
+  color: #06f006;
+  font-family: lato;
+  animation:neon 1s ease infinite alternate;
+  left: 1252px;
+  top: 159px;
+  }
+@keyframes neon {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 30px #fff, 0 0 45px #06f006, 0 0 50px #06f006
+  }
+  to {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #06f006;
+  }
+}
+.replay{
+  position: absolute;
+  left: 125px;
+  top: 115px;
+  width: 194px;
+  /* height:500px; */
+}
+ .replay:hover{
+  transition: all .5s ease;
+  transform: scale(1.2);
+ }
+ .won,.lost{
+    width: 50vw;
+    height: 100vh;
+    margin-left: 25vw

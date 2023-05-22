@@ -1,0 +1,240 @@
+@font-face {
+  font-family: "Neo Sans Std";
+  src: url("neo-sans-std.otf");
+}
+body{
+  margin: 0 !important;
+  padding:0 !important;
+  background-image:url('bg.png');
+  background-repeat: no-repeat;
+  font-family:'Neo Sans Std' !important;
+  color: white
+}
+.game{
+  width: 960px;
+  height: 600px;
+  margin-top: 1vh;
+  margin-left: 16vw;
+  border: solid 10px #02071466;
+  border-radius: 10px;
+}
+.start{
+  position: relative;
+    width: 100%;
+    height: 100%;
+    display: block;
+    background-image: url('StartBg4.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+.startB{
+    position: absolute;
+    cursor:pointer;
+    right: 37px;
+    width: 284px;
+    height: 66px;
+    top: 499px;
+    color: white;
+    text-shadow: 2px 2px 5px #a02d29;
+    text-align: center;
+    font-size: 41px;
+    padding-right: 11px;
+    z-index: 10;
+    
+}
+.startB:hover .circle{
+	transform: scale(1);
+	opacity: 0.3;
+	transition: all 350ms ease-in-out;
+}
+
+.circle{
+	z-index:-1;
+	position: absolute;
+	cursor: pointer;
+	left: 39%;
+	width: 69px;
+	height: 69px;
+	top: -7%;
+	background: #f19e0d;
+	border-radius: 50%;
+	transform: scale(0);
+	opacity: 0;
+	transition: all 350ms ease-in-out;
+}
+.options{
+    position: absolute;
+    left: 880px;
+    top: 20px;
+    cursor:pointer;
+}
+.instructions{
+	background-image: url('EndBg.png');
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: none;
+	padding-top: 22px;
+}
+.instructions b{
+	color:#dc403e !important;
+}
+.instructions p{
+	display: none;
+	margin: 9px 0px 10px 18px;
+}
+.close{
+    cursor:pointer;
+  	display: none;
+    position: absolute;
+    left: 880px;
+    top: 20px;
+}
+#main{
+  padding: 10px;
+  display: none;
+}
+.header{
+  height: 5vh;
+  width: 100%;
+}
+.main p{
+  display: inline;
+  font-size: 36px;
+}
+.header img{
+  vertical-align: sub;
+  height: 100%;
+  cursor:pointer;
+}
+.header p{
+  text-shadow: 1px 1px #ffffff5e;
+}
+p.timer {
+    position: absolute;
+    top: -9px;
+    right: 186px;
+    font-size: 36px;
+}
+
+p.fuel {
+    margin-right: 20px;
+}
+
+
+.header2{
+  position: absolute;
+  /* top: 642px; */
+  left: 262px;
+  height: 5vh;
+  bottom: 62px;
+}
+img.stop , img.mute {
+    margin-right: 20px;
+}
+
+img.Fsmaller {
+    position: relative;
+    width: 14px;
+    height: auto;
+    top: -5px;
+    left: -20px;
+}
+.footer {
+    width: 100%;
+    height: 12vh;
+}
+#Mtop{
+    cursor:pointer;
+    position: absolute;
+    /* left:1200px; */
+    /* top:590px */
+    bottom: 100px;
+    right: 225px;
+}
+#Mleft{
+    cursor:pointer;
+    position: absolute;
+    /* left:1160px; */
+    /* top:622px */
+    bottom: 64px;
+    right: 265px;
+}
+#Mbottom{
+    cursor:pointer;
+    position: absolute;
+    /* left:1200px; */
+    /* top:655px */
+    bottom: 25px;
+    right: 224px;
+}
+#Mright {
+    cursor:pointer;
+    position: absolute;
+    /* left:1237px; */
+    /* top: 623px; */
+    bottom: 62px;
+    right: 187px;
+}
+#canvas{
+    margin-top: -47px;
+    margin-left: -9px;
+    position: absolute;
+    z-index: -1;
+}
+.end{
+	background-image:url('EndBg.png');
+	background-repeat: no-repeat;
+	background-size: 100%;
+	width: 100%;
+	height: 100%;
+	position: relative;
+	display: none;
+}
+
+img.logoS {
+    position: absolute;
+    height: 96px;
+    top: 37px;
+    left: 50%;
+}
+
+
+.eright{
+  margin:auto;
+  display: inline;
+  width: 50%;
+  height: 70%;
+}
+
+table{
+  position: relative;
+  width: 47%;
+  height: 75%;
+  top: 20px;
+  text-align: center;
+  border-collapse: collapse;
+  border-style: hidden;
+  margin: auto;
+}
+.end th{
+  color: #7b292a;
+  background: #ffffffa8;
+}
+th{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 1px solid #7b292aa8;
+  width:25%;
+}
+td{
+  border: 1px solid #ffffffa8;
+}
+.r1{
+  background: #7b292aa8;
+  color: white
+}
+.r2{
+  color: white;
+  background: #dc403ea8;
+}
