@@ -10,7 +10,7 @@ var multilang = {
             "contact": "Contact",
             "caption_title": "Wiam Haouzia",
             "caption_subtitle": "UI/UX Designer",
-            "caption_body": "Salut,</br>Je suis une designer UI/UX marocaine avec plus de 6 ans d'expérience, spécialisée dans les designs centrés sur l'utilisateur et visuellement attrayants. Je maîtrise HTML, CSS et JavaScript, ce qui me permet de créer des prototypes interactifs.</br> J'ai géré divers projets avec des équipes pour garantir des livraisons dans les délais. Mon expertise comprend le wireframing, le prototypage, les tests d'usabilité et le design visuel. Je suis passionnée par l'exploration des nouvelles tendances en design et enthousiaste à l'idée de collaborer avec des équipes innovantes pour créer des expériences utilisateur exceptionnelles.",
+            "caption_body": "Salut,</br>Je suis une designer UI/UX marocaine avec plus de 6 ans d'expérience, spécialisée dans les designs centrés sur l'utilisateur et visuellement attrayants. Je maîtrise HTML, CSS et JavaScript, ce qui me permet de créer des prototypes interactifs.</br> </br>J'ai géré divers projets avec des équipes pour garantir des livraisons dans les délais. Mon expertise comprend le wireframing, le prototypage, les tests d'usabilité et le design visuel. Je suis passionnée par l'exploration des nouvelles tendances en design et enthousiaste à l'idée de collaborer avec des équipes innovantes pour créer des expériences utilisateur exceptionnelles.",
             't_professional_experience': "Éxpériences professionnelles",
             "pro_exp_0_date": "Juin 2023 - Présent",
             "pro_exp_0_title": "UI/UX Designer <i class=\"fas fa-map-marker-alt\"></i> Kavaa Global Services",
