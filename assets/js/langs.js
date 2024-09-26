@@ -10,7 +10,9 @@ var multilang = {
             "contact": "Contact",
             "caption_title": "Wiam Haouzia",
             "caption_subtitle": "UI/UX Designer",
-            "caption_body": "Salut,</br>Je suis une designer UI/UX marocaine avec plus de 6 ans d'expérience, spécialisée dans les designs centrés sur l'utilisateur et visuellement attrayants. Je maîtrise HTML, CSS et JavaScript, ce qui me permet de créer des prototypes interactifs.</br> </br>J'ai géré divers projets avec des équipes pour garantir des livraisons dans les délais. Mon expertise comprend le wireframing, le prototypage, les tests d'usabilité et le design visuel. Je suis passionnée par l'exploration des nouvelles tendances en design et enthousiaste à l'idée de collaborer avec des équipes innovantes pour créer des expériences utilisateur exceptionnelles.",
+
+            "caption_body": "Salut,</br>Je suis UI/UX Designer passionnée avec plus de 6 ans d'expérience dans la conception d'interfaces utilisateur intuitives et l'optimisation de l'expérience utilisateur. </br>Compétente en recherche utilisateur, wireframing, prototypage, et maîtrise des principaux outils de design.</br></br>Forte expertise en développement web front-end et back-end, ainsi qu'une expérience solide en gestion de projets, formation, et collaboration avec des équipes pluridisciplinaires.",
+
             't_professional_experience': "Éxpériences professionnelles",
             "pro_exp_0_date": "Juin 2023 - Présent",
             "pro_exp_0_title": "UI/UX Designer <i class=\"fas fa-map-marker-alt\"></i> Kavaa Global Services",
@@ -50,7 +52,9 @@ var multilang = {
             "contact": "Contact",
             "caption_title": "Wiam Haouzia",
             "caption_subtitle": "UI/UX Designer",
-            "caption_body": "Hi There, <br> I'm a Moroccan UI/UX designer . With over 6 years of experience, I specialize in creating user-centric, visually compelling designs. I'm skilled in HTML, CSS, and JavaScript, allowing me to build interactive prototypes that bring ideas to life. <br> <br>I\'ve successfully managed various projects, working closely with teams to ensure timely delivery. My expertise includes wireframing, prototyping, usability testing, and visual design. I'm always eager to learn and explore new design trends, and I'm excited to collaborate with innovative teams to craft exceptional user experiences.",
+            
+            "caption_body": "Hello,</br>I am a passionate UI/UX Designer with over 6 years of experience in creating intuitive user interfaces and optimizing user experience.</br>Skilled in user research, wireframing, prototyping, and proficient in major design tools.</br></br>Strong expertise in front-end and back-end web development, along with solid experience in project management, training, and collaboration with multidisciplinary teams."
+
             "caption_btn": "My Projects",
             't_professional_experience': "Professional Experience","pro_exp_0_date": "June 2023 - Now",
             "pro_exp_0_title": "UI/UX Designer <i class=\"fas fa-map-marker-alt\"></i> Kavaa Global Services",
