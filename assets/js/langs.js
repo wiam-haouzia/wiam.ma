@@ -53,8 +53,7 @@ var multilang = {
             "caption_title": "Wiam Haouzia",
             "caption_subtitle": "UI/UX Designer",
             
-            "caption_body": "Hello,</br>I am a passionate UI/UX Designer with over 6 years of experience in creating intuitive user interfaces and optimizing user experience.</br>Skilled in user research, wireframing, prototyping, and proficient in major design tools.</br></br>Strong expertise in front-end and back-end web development, along with solid experience in project management, training, and collaboration with multidisciplinary teams."
-
+            "caption_body": "Hello,</br>I am a passionate UI/UX Designer with over 6 years of experience in creating intuitive user interfaces and optimizing user experience.</br>Skilled in user research, wireframing, prototyping, and proficient in major design tools.</br></br>Strong expertise in front-end and back-end web development, along with solid experience in project management, training, and collaboration with multidisciplinary teams.",
             "caption_btn": "My Projects",
             't_professional_experience': "Professional Experience","pro_exp_0_date": "June 2023 - Now",
             "pro_exp_0_title": "UI/UX Designer <i class=\"fas fa-map-marker-alt\"></i> Kavaa Global Services",
