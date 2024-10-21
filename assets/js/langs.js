@@ -6,7 +6,7 @@ var multilang = {
         "fr" : {
             "experience_education" : "Formations & Éxpériences",
             "skills": "Compétences",
-            "projects": "Projcts",
+            "projects": "Projets",
             "contact": "Contact",
             "caption_title": "Wiam Haouzia",
             "caption_subtitle": "UI/UX Designer",
